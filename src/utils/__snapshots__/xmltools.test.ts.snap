@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InterfaceGenerator generates the correct CheckBox code 1`] = `
+"export interface CheckBoxExample {
+  /**
+   * GDPR Signed
+   */
+  gdprSigned?: boolean;
+}
+"
+`;
+
+exports[`InterfaceGenerator generates the correct ContentSelector code 1`] = `
+"export interface ContentSelectorExample {
+  /**
+   * FAB button target
+   */
+  fabTarget?: string;
+}
+"
+`;
+
+exports[`InterfaceGenerator generates the correct ContentSelector code 2`] = `
+"export interface ContentSelectorExample {
+  /**
+   * Members
+   */
+  members?: Array<string>;
+}
+"
+`;
+
+exports[`InterfaceGenerator generates the correct FieldSet code 1`] = `
+"export interface FieldSetUser {
+  /**
+   * Runde 1
+   */
+  juryvote1?: string;
+
+  /**
+   * Runde 2
+   */
+  juryvote2?: string;
+}
+"
+`;
+
+exports[`InterfaceGenerator generates the correct ItemSet code 1`] = `
+"export interface ItemSetUser {
+  /**
+   * Contact Info
+   */
+  contactInfo?: Array<{
+    /**
+     * Label
+     */
+    label?: string;
+
+    /**
+     * Phone Number
+     */
+    phoneNumber?: string;
+
+    /**
+     * Contact Info
+     */
+    contactInfo?: Array<{
+      /**
+       * Phone Number
+       */
+      phoneNumber?: string;
+    }>;
+  }>;
+}
+"
+`;
+
+exports[`InterfaceGenerator generates the correct input code 1`] = `
+"export interface Simple {
+  /**
+   * First name
+   */
+  firstName: string;
+
+  /**
+   * Last name
+   */
+  lastName?: string;
+}
+"
+`;
+
+exports[`InterfaceGenerator generates the correct mixin code 1`] = `
+"export interface MixedIn {
+  /**
+   * First Name
+   */
+  firstName: string;
+
+  /**
+   * Last Name
+   */
+  lastName: string;
+
+  /**
+   * Full address
+   */
+  address: {
+    /**
+     * Street address
+     */
+    addressLine?: string;
+
+    /**
+     * City
+     */
+    city: string;
+
+    /**
+     * Zip code
+     */
+    zipCode: string;
+
+    /**
+     * Country
+     */
+    country: string;
+  };
+}
+"
+`;
