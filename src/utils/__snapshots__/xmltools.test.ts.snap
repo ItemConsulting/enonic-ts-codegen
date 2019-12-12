@@ -5,7 +5,7 @@ exports[`InterfaceGenerator generates the correct CheckBox code 1`] = `
   /**
    * GDPR Signed
    */
-  gdprSigned?: boolean;
+  gdprSigned: boolean;
 }
 "
 `;

@@ -124,7 +124,8 @@ function formatInterface(iface: GeneratedInterface): string {
 }
 
 function formatField(field: GeneratedField): string {
-  const optional = field.optional ? "?" : "";
+  const isTypeBoolean = field.type === GeneratedFieldType.Boolean;
+  const optional = (field.optional && !isTypeBoolean) ? "?" : "";
   const comment = field.comment ? formatComment(field.comment) : "";
   const type = formatType(field.type, field.subfields || []);
   return `${comment}  ${field.name}${optional}: ${type};`;
