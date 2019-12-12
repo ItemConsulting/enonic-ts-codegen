@@ -12,7 +12,16 @@ export const InvalidMixinError = "Failed to parse mixin";
  * @param filename
  */
 export function generateInterfaceName(filename: string): string {
-  return pascalCase(path.basename(filename, path.extname(filename)));
+  return fixNumberBug(pascalCase(path.basename(filename, path.extname(filename))));
+}
+
+/**
+ * There is a bug in pascalCase where if there is a number we get an underscore
+ * E.g "layout-1-col" gives "layout_1Col"
+ * @param str
+ */
+function fixNumberBug(str: string): string {
+  return str.replace(/_/,'');
 }
 
 export interface InterfaceGenerator {
