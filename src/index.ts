@@ -13,6 +13,7 @@ function generateInterface(xmlFilename: string, tsFilename: string): string {
 
 // map<directory, suffix>
 const directorySuffix: { [key: string]: string } = {
+  layouts: "-config",
   parts: "-part-config",
   pages: "-page-config",
   site: "-config",
@@ -50,7 +51,8 @@ const directories = [
   "src/main/resources/idprovider/idprovider.xml",
   "src/main/resources/site/content-types",
   "src/main/resources/site/parts",
-  "src/main/resources/site/pages"
+  "src/main/resources/site/pages",
+  "src/main/resources/site/layouts"
 ];
 const mixinDir = "src/main/resources/site/mixins";
 
