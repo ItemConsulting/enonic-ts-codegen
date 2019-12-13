@@ -1,4 +1,4 @@
-import { pascalCase } from "change-case";
+import { pascalCaseTransformMerge, pascalCase } from "pascal-case";
 import * as path from "path";
 import * as xmldom from "xmldom";
 import { evaluate, flatmapXpathResult, mapXpathResult } from "./xpathutils";
@@ -12,16 +12,12 @@ export const InvalidMixinError = "Failed to parse mixin";
  * @param filename
  */
 export function generateInterfaceName(filename: string): string {
-  return fixNumberBug(pascalCase(path.basename(filename, path.extname(filename))));
-}
-
-/**
- * There is a bug in pascalCase where if there is a number we get an underscore
- * E.g "layout-1-col" gives "layout_1Col"
- * @param str
- */
-function fixNumberBug(str: string): string {
-  return str.replace(/_/,'');
+  return pascalCase(
+    path.basename(filename, path.extname(filename)),
+    {
+      transform: pascalCaseTransformMerge
+    }
+  );
 }
 
 export interface InterfaceGenerator {
