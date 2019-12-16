@@ -2,15 +2,60 @@
 
 [![npm version](https://badge.fury.io/js/enonic-ts-codegen.svg)](https://badge.fury.io/js/enonic-ts-codegen)
 
-Functional utility library for Enonic XP
+Code generation tool that creates TypeScript interfaces based on xmls in Enonic XP. It can create interfaces for:
+
+ * Content types
+ * Pages
+ * Parts
+ * Site
+ * Layout
+ * Id-provider
+ 
+It is recommended to let Gradle run this tool on every build, so that we always have a tight cupling between the xmls and TypeScript-code.
 
 ## CLI
 
-`xml-to-ts.js` is a command line utility that can generate TypeScript interfaces
-for Sites, ContentTypes, Parts, and Pages from XML-files.
+`xml-to-ts.js` is a command line utility that can generate TypeScript interfaces.
 
 - Build it: `npm run build` or `npm run build:cli`
 - Run it from the command line: `node bin/xml-to-ts.js my-xml-file.xml`
+
+## Example
+
+Given that we have a content-type described in **content-types/article/article.xml**:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Article</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="title" type="TextLine">
+      <label>Title of the article</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+
+    <input name="body" type="HtmlArea">
+      <label>Main text body</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+  </form>
+</content-type>
+```
+
+Running *enonic-ts-codegen* will generate the a TypeScript-interface in the file **content-types/article/article.ts**:
+
+```typescript
+export interface Article {
+  /** Title of the article */
+  title: string;
+ 
+  /** Main text body */
+  body?: string;
+}
+```
+
+This interface will describe the data shape for this content type. Note that body can be undefined since `occurrences/@minimum` is `0` for `body`, so the key becomes `body?`, since the value can be `undefined`.
 
 ### Gradle
 
