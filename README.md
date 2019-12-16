@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/enonic-ts-codegen.svg)](https://badge.fury.io/js/enonic-ts-codegen)
 
-Code generation tool that creates TypeScript interfaces based on xmls in Enonic XP. It can create interfaces for:
+Code generation tool that creates **TypeScript interfaces** based on xmls in Enonic XP. It can create interfaces for:
 
  * Content types
  * Pages
@@ -12,13 +12,6 @@ Code generation tool that creates TypeScript interfaces based on xmls in Enonic 
  * Id-provider
  
 It is recommended to let Gradle run this tool on every build, so that we always have a tight cupling between the xmls and TypeScript-code.
-
-## CLI
-
-`xml-to-ts.js` is a command line utility that can generate TypeScript interfaces.
-
-- Build it: `npm run build` or `npm run build:cli`
-- Run it from the command line: `node bin/xml-to-ts.js my-xml-file.xml`
 
 ## Example
 
@@ -56,6 +49,13 @@ export interface Article {
 ```
 
 This interface will describe the data shape for this content type. Note that body can be undefined since `occurrences/@minimum` is `0` for `body`, so the key becomes `body?`, since the value can be `undefined`.
+
+## CLI
+
+`xml-to-ts.js` is a command line utility that can generate TypeScript interfaces.
+
+- Build it: `npm run build` or `npm run build:cli`
+- Run it from the command line: `node bin/xml-to-ts.js my-xml-file.xml`
 
 ### Gradle
 
