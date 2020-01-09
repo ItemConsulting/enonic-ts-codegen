@@ -124,7 +124,13 @@ function formatField(field: GeneratedField): string {
   const optional = (field.optional && !isTypeBoolean) ? "?" : "";
   const comment = field.comment ? formatComment(field.comment) : "";
   const type = formatType(field.type, field.subfields || []);
-  return `${comment}  ${field.name}${optional}: ${type};`;
+  return `${comment}  ${escapeIfDashes(field.name)}${optional}: ${type};`;
+}
+
+function escapeIfDashes(key: string): string {
+  return (key.indexOf('-') !== -1)
+    ? `'${key}'`
+    : key;
 }
 
 function formatType(type: string, subfields: Array<GeneratedField>): string {
