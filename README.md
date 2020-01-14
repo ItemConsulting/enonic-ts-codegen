@@ -9,6 +9,7 @@ Code generation tool that creates **TypeScript interfaces** based on xmls in Eno
  * Parts
  * Site
  * Layout
+ * Macros
  * Id-provider
  
 It is recommended to let Gradle run this tool on every build, so that we always have a tight cupling between the xmls and TypeScript-code.
