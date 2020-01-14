@@ -17,6 +17,7 @@ const directorySuffix: { [key: string]: string } = {
   parts: "-part-config",
   pages: "-page-config",
   site: "-config",
+  macros: "-config",
   idprovider: "-config"
 };
 
@@ -52,7 +53,8 @@ const directories = [
   "src/main/resources/site/content-types",
   "src/main/resources/site/parts",
   "src/main/resources/site/pages",
-  "src/main/resources/site/layouts"
+  "src/main/resources/site/layouts",
+  "src/main/resources/site/macros"
 ];
 const mixinDir = "src/main/resources/site/mixins";
 
