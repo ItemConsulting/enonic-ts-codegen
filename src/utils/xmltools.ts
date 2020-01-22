@@ -362,12 +362,12 @@ function getType(
   inputType: string,
   options: { maxOccurrences?: number }
 ): GeneratedFieldType {
-  switch (inputType) {
-    case "ContentSelector":
+  switch (inputType.toLowerCase()) {
+    case "contentselector":
       return options.maxOccurrences === 1
         ? GeneratedFieldType.String
         : GeneratedFieldType.StringArray;
-    case "CheckBox":
+    case "checkbox":
       return GeneratedFieldType.Boolean;
     default:
       return GeneratedFieldType.String;
