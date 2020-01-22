@@ -266,7 +266,51 @@ const xml = {
       <label>GDPR Signed</label>
     </input>
   </form>
-</content-type>\n`
+</content-type>\n`,
+
+  optionSet: `<content-type>
+  <display-name>Using mixins</display-name>
+  <form>
+    <option-set name="checkOptionSet">
+      <label i18n="checkOptionSet.label">Multi-selection OptionSet</label>
+      <expanded>true</expanded> 
+      <occurrences minimum="1" maximum="1"/> 
+      <help-text>You can select up to 2 options</help-text>
+      <options minimum="1" maximum="2">    
+        <option name="option_1">  
+          <label i18n="checkOptionSet.option_1.label">Option 1</label>  
+          <help-text i18n="checkOptionSet.option_1.help-text">Help text for Option 1</help-text>  
+        </option>
+        <option name="option_2">
+          <label i18n="checkOptionSet.option_2.label">Option 2</label>
+          <default>true</default> 
+          <items> 
+            <input name="contentSelector" type="ContentSelector">
+              <label>Content selector</label>
+              <occurrences minimum="0" maximum="0"/>
+              <config/>
+            </input>
+          </items>
+        </option>
+        <option name="option_3">
+          <label>Option 3</label>
+          <help-text>Help text for Option 3</help-text>
+          <items>
+            <input name="textarea" type="TextArea">
+              <label>Text Area</label>
+              <occurrences minimum="0" maximum="1"/>
+            </input>
+            <input name="long" type="Long">
+              <label>Long</label>
+              <indexed>true</indexed>
+              <occurrences minimum="0" maximum="1"/>
+            </input>
+          </items>
+        </option>
+      </options>
+    </option-set>
+  </form>
+  </content-type>\n`
 };
 
 describe("parseXML", () => {
@@ -452,6 +496,15 @@ describe("InterfaceGenerator", () => {
       xml.contentSelectorMultiple
     );
     expect(tsInterfaceMultiple).toMatchSnapshot();
+  });
+
+  test("generates the correct OptionSet code",() => {
+    const generator = xmltools.NewInterfaceGenerator();
+    const tsInterface = generator.createInterface(
+      "optionSet",
+      xml.optionSet
+    );
+    expect(tsInterface).toMatchSnapshot();
   });
 
   test("generates the correct CheckBox code", () => {

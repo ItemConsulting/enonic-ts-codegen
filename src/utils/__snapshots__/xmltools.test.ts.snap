@@ -75,6 +75,53 @@ exports[`InterfaceGenerator generates the correct ItemSet code 1`] = `
 "
 `;
 
+exports[`InterfaceGenerator generates the correct OptionSet code 1`] = `
+"export interface optionSet {
+  /**
+   * Multi-selection OptionSet
+   */
+  checkOptionSet: {
+    /**
+     * Selected
+     */
+    _selected: string | Array<string>;
+
+    /**
+     * Option 1
+     */
+    option_1?: {
+
+    };
+
+    /**
+     * Option 2
+     */
+    option_2?: {
+      /**
+       * Content selector
+       */
+      contentSelector?: Array<string>;
+    };
+
+    /**
+     * Option 3
+     */
+    option_3?: {
+      /**
+       * Text Area
+       */
+      textarea?: string;
+
+      /**
+       * Long
+       */
+      long?: string;
+    };
+  };
+}
+"
+`;
+
 exports[`InterfaceGenerator generates the correct input code 1`] = `
 "export interface Simple {
   /**
