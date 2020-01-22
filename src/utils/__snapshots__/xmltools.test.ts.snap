@@ -10,6 +10,16 @@ exports[`InterfaceGenerator generates the correct CheckBox code 1`] = `
 "
 `;
 
+exports[`InterfaceGenerator generates the correct ComboBox code 1`] = `
+"export interface ComboBoxExample {
+  /**
+   * Invited
+   */
+  invite?: \\"Yes\\" | \\"No\\" | \\"Maybe\\";
+}
+"
+`;
+
 exports[`InterfaceGenerator generates the correct ContentSelector code 1`] = `
 "export interface ContentSelectorExample {
   /**
