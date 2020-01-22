@@ -57,6 +57,16 @@ const xml = {
   </form>
   </content-type>\n`,
 
+  simpleCaseIncentiveType: `<content-type>
+  <display-name>Employee</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="gdprSigned" type="cHeckbOx">
+      <label>GDPR Signed</label>
+    </input>
+  </form>
+  </content-type>\n`,
+
   simpleMissingComment: `<content-type>
   <display-name>Employee</display-name>
   <super-type>base:structured</super-type>
@@ -268,6 +278,21 @@ const xml = {
   </form>
 </content-type>\n`,
 
+  combobox: `<content-type>
+  <display-name>Using mixins</display-name>
+  <form>
+    <input name="invite" type="ComboBox">
+    <label>Invited</label>
+    <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+        <option value="Maybe">Maybe</option>
+      </config>
+    </input>
+  </form>
+</content-type>\n`,
+
   optionSet: `<content-type>
   <display-name>Using mixins</display-name>
   <form>
@@ -399,6 +424,12 @@ describe("parseXML", () => {
     expect(field.type).toBe("boolean");
   });
 
+  test("parses Input types regardless of case", () => {
+    const tsInterface = xmltools.parseXml("CaseIncentiveTypeExample", xml.simpleCaseIncentiveType);
+    const field = tsInterface.fields[0];
+    expect(field.type).toBe("boolean");
+  });
+
   test("parses the minimal site", () => {
     const tsInterface = xmltools.parseXml("MySite", xml.minimalSite);
     expect(tsInterface.name).toBe("MySite");
@@ -512,6 +543,15 @@ describe("InterfaceGenerator", () => {
     const tsInterface = generator.createInterface(
       "CheckBoxExample",
       xml.checkbox
+    );
+    expect(tsInterface).toMatchSnapshot();
+  });
+
+  test("generates the correct ComboBox code", () => {
+    const generator = xmltools.NewInterfaceGenerator();
+    const tsInterface = generator.createInterface(
+      "ComboBoxExample",
+      xml.combobox
     );
     expect(tsInterface).toMatchSnapshot();
   });

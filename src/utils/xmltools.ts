@@ -353,15 +353,16 @@ function createFieldFromInput(input: Node): GeneratedField {
     maxOccurrences: maximumOccurrencesAttr
       ? Number.parseInt(maximumOccurrencesAttr.value)
       : undefined
-  });
+  },input);
 
   return { name, type, comment, optional };
 }
 
 function getType(
   inputType: string,
-  options: { maxOccurrences?: number }
-): GeneratedFieldType {
+  options: { maxOccurrences?: number },
+  input: Node
+): GeneratedFieldType | string  {
   switch (inputType.toLowerCase()) {
     case "contentselector":
       return options.maxOccurrences === 1
@@ -369,6 +370,15 @@ function getType(
         : GeneratedFieldType.StringArray;
     case "checkbox":
       return GeneratedFieldType.Boolean;
+    case "combobox":
+      const alternatives = mapXpathResult<Array<string>>(
+        evaluate("./config/option", input),
+        (node) => xpath.select1("@value",node).value
+      );
+
+      return alternatives
+        .map(value => `"${value}"`)
+        .join(" | ");
     default:
       return GeneratedFieldType.String;
   }
