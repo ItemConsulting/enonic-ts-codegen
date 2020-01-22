@@ -1,6 +1,6 @@
 {
   "name": "enonic-ts-codegen",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Generate TypeScript-code for Enonic XP",
   "main": "bin/index.js",
   "typings": "bin/index.d.ts",
@@ -10,7 +10,7 @@
     "test": "jest",
     "watch:test": "jest --watch",
     "lint": "eslint --fix \"src/**/*.ts\"",
-    "prepublish": "npm run lint && npm run build"
+    "prepublishOnly": "npm run lint && npm run build"
   },
   "repository": {
     "type": "git",
@@ -38,22 +38,9 @@
     "@typescript-eslint/eslint-plugin": "^2.15.0",
     "@typescript-eslint/parser": "^2.15.0",
     "eslint": "^6.6.0",
-    "husky": "^3.0.9",
     "jest": "^24.9.0",
-    "lint-staged": "^9.4.2",
     "rimraf": "^3.0.0",
     "ts-jest": "^24.3.0",
-    "typescript": "^3.7.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.ts": [
-      "eslint --fix 'src/**/*.ts'",
-      "git add"
-    ]
+    "typescript": "^3.7.5"
   }
 }
