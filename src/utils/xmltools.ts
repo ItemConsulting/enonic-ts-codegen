@@ -181,6 +181,7 @@ function parseForm(form: Node): Array<GeneratedField> {
     ...getInputFields(form),
     ...getFieldSetItems(form),
     ...getItemSetFields(form),
+    ...getOptionSetFields(form),
     ...getMixins(form)
   ];
 }
@@ -227,6 +228,94 @@ function getItemSetFields(node: Node): Array<GeneratedField> {
         : [];
 
       return { name, type, optional, comment, subfields };
+    }
+  );
+}
+
+// Options in optionsSets can contain optionSets so this function is called recursively.
+function getOptionSetFields(node: Node): Array<GeneratedField> {
+  const optionSets = evaluate("./option-set", node);
+
+  return mapXpathResult(
+    optionSets,
+    (node: Node): GeneratedField => {
+      const minimumOccurrences = xpath.select1(
+        "string(./occurrences/@minimum)",
+        node
+      );
+
+      const name = xpath.select1("string(@name)", node);
+      const type = GeneratedFieldType.Object;
+      const optional = minimumOccurrences ? minimumOccurrences === "0" : true;
+      const comment = xpath.select1("string(./label)", node);
+
+      const options = evaluate("./options", node).iterateNext();
+      const subfields = options
+        ? [
+            ...getOptionsSelectedField(options),
+            ...getOptionFields(options)
+          ]
+        : [];
+
+      return { name, type, optional, comment, subfields };
+    }
+  );
+}
+
+// Options can contain optionSets
+function getOptionFields(node: Node): Array<GeneratedField> {
+  const option = evaluate("./option", node);
+
+  return mapXpathResult(
+    option,
+    (node: Node): GeneratedField => {
+      const minimumOccurrences = xpath.select1(
+        "string(./occurrences/@minimum)",
+        node
+      );
+
+      const name = xpath.select1("string(@name)", node);
+      const type = GeneratedFieldType.Object;
+      const optional = minimumOccurrences ? minimumOccurrences === "0" : true;
+      const comment = xpath.select1("string(./label)", node);
+
+
+      const options = evaluate("./items", node).iterateNext();
+      const subfields = options
+        ? [
+            ...getInputFields(options),
+            ...getFieldSetItems(options),
+            ...getItemSetFields(options),
+            ...getOptionSetFields(options)
+          ]
+        : [];
+
+      return { name, type, optional, comment, subfields };
+    }
+  );
+}
+
+function getOptionsSelectedField(node: Node): Array<GeneratedField> {
+  const options = evaluate(".", node);
+
+  return mapXpathResult(
+    options,
+    (node: Node): GeneratedField => {
+      const minimumOccurrences = xpath.select1(
+        "string(./@minimum)",
+        node
+      );
+      const maxOccurrences = xpath.select1(
+        "string(./@maximum)",
+        node
+      );
+      const name = "_selected";
+      const type = [minimumOccurrences <= 1 ? GeneratedFieldType.String : null,
+                   maxOccurrences > 1 ? GeneratedFieldType.StringArray: null].filter(x => x).join(" | ") ;
+      const optional = minimumOccurrences ? minimumOccurrences === "0" : true;
+      const comment = "Selected";
+
+      return { name, type, optional, comment};
     }
   );
 }
