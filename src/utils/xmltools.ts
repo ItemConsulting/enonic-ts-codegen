@@ -66,7 +66,7 @@ class Generator implements InterfaceGenerator {
       throw InvalidMixinError;
     }
     const subfields = parseForm(form);
-    this._mixins[name] = { name, type, optional: false, comment, subfields };
+    this._mixins[name] = subfields;
   }
 
   substituteMixins = (
@@ -80,10 +80,8 @@ class Generator implements InterfaceGenerator {
     if (!mixin) {
       throw InvalidMixinError;
     }
-    if (mixin.subfields) {
-      mixin.subfields = mixin.subfields.reduce(this.substituteMixins, []);
-    }
-    return result.concat([mixin]);
+
+    return result.concat(mixin);
   };
 }
 
@@ -102,7 +100,7 @@ export interface GeneratedField {
 }
 
 interface Mixin {
-  [key: string]: GeneratedField;
+  [key: string]: Array<GeneratedField>;
 }
 
 enum GeneratedFieldType {
@@ -353,7 +351,7 @@ function createFieldFromInput(input: Node): GeneratedField {
     maxOccurrences: maximumOccurrencesAttr
       ? Number.parseInt(maximumOccurrencesAttr.value)
       : undefined
-  },input);
+  }, input);
 
   return { name, type, comment, optional };
 }

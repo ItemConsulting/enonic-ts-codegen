@@ -170,29 +170,24 @@ exports[`InterfaceGenerator generates the correct mixin code 1`] = `
   lastName: string;
 
   /**
-   * Full address
+   * Street address
    */
-  address: {
-    /**
-     * Street address
-     */
-    addressLine?: string;
+  addressLine?: string;
 
-    /**
-     * City
-     */
-    city: string;
+  /**
+   * City
+   */
+  city: string;
 
-    /**
-     * Zip code
-     */
-    zipCode: string;
+  /**
+   * Zip code
+   */
+  zipCode: string;
 
-    /**
-     * Country
-     */
-    country: string;
-  };
+  /**
+   * Country
+   */
+  country: string;
 }
 "
 `;
