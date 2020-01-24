@@ -132,6 +132,16 @@ exports[`InterfaceGenerator generates the correct OptionSet code 1`] = `
 "
 `;
 
+exports[`InterfaceGenerator generates the correct RadioButton code 1`] = `
+"export interface RadioButtonExample {
+  /**
+   * My RadioButton
+   */
+  myradiobutton?: \\"one\\" | \\"two\\";
+}
+"
+`;
+
 exports[`InterfaceGenerator generates the correct input code 1`] = `
 "export interface Simple {
   /**

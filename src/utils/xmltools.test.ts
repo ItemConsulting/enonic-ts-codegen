@@ -278,6 +278,7 @@ const xml = {
   </form>
 </content-type>\n`,
 
+
   combobox: `<content-type>
   <display-name>Using mixins</display-name>
   <form>
@@ -335,6 +336,22 @@ const xml = {
       </options>
     </option-set>
   </form>
+  </content-type>\n`,
+
+  radioButton: `
+    <content-type>
+      <display-name>Using mixins</display-name>
+      <form>
+        <input name="myradiobutton" type="RadioButton">
+          <label>My RadioButton</label>
+          <occurrences minimum="0" maximum="1"/> 
+          <config>
+            <option value="one">Option One</option> 
+            <option value="two">Option Two</option>
+          </config>
+          <default>one</default> 
+        </input>
+      </form>
   </content-type>\n`
 };
 
@@ -552,6 +569,15 @@ describe("InterfaceGenerator", () => {
     const tsInterface = generator.createInterface(
       "ComboBoxExample",
       xml.combobox
+    );
+    expect(tsInterface).toMatchSnapshot();
+  });
+
+  test("generates the correct RadioButton code", () => {
+    const generator = xmltools.NewInterfaceGenerator();
+    const tsInterface = generator.createInterface(
+      "RadioButtonExample",
+      xml.radioButton
     );
     expect(tsInterface).toMatchSnapshot();
   });

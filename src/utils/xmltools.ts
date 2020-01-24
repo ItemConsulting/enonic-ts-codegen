@@ -361,7 +361,7 @@ function createFieldFromInput(input: Node): GeneratedField {
 function getType(
   inputType: string,
   options: { maxOccurrences?: number },
-  input: Node
+  node: Node
 ): GeneratedFieldType | string  {
   switch (inputType.toLowerCase()) {
     case "contentselector":
@@ -371,15 +371,27 @@ function getType(
     case "checkbox":
       return GeneratedFieldType.Boolean;
     case "combobox":
-      const alternatives = mapXpathResult<Array<string>>(
-        evaluate("./config/option", input),
-        (node) => xpath.select1("@value",node).value
-      );
+      const union = createStringUnion(getAllowedOptions(node));
 
-      return alternatives
-        .map(value => `"${value}"`)
-        .join(" | ");
+      return ((options.maxOccurrences ?? 1) > 1)
+        ? `${union} | Array<${union}>`
+        : union;
+    case "radiobutton":
+      return createStringUnion(getAllowedOptions(node));
     default:
       return GeneratedFieldType.String;
   }
+}
+
+function getAllowedOptions(node: Node): Array<string> {
+  return mapXpathResult<string>(
+    evaluate("./config/option", node),
+    (node) => xpath.select1("@value",node).value
+  );
+}
+
+function createStringUnion(strings: Array<string>): string {
+  return strings
+    .map(value => `"${value}"`)
+    .join(" | ");
 }
