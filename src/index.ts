@@ -141,7 +141,6 @@ function command(argv: Array<string>): void {
 
   const rename = cmd.project ? getTsFilename : replaceFileExtension(".ts");
   const write = cmd.writeToFile ? fileWriter : consoleWriter;
-
   const files = cmd.project ? getEnonicXmlFiles(cmd.project) : cmd.args;
   if (files.length === 0) {
     exit("No files");

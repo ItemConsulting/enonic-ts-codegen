@@ -233,6 +233,58 @@ const xml = {
   </form>
 </mixin>`,
 
+mixinMultiLevel: `<content-type>
+  <display-name>Using mixins</display-name>
+  <form> 
+    <field-set> 
+      <label i18n="metadata.label">Metadata</label>
+      <items> 
+        <mixin name="address"/> 
+      </items>
+    </field-set>
+    <item-set name="contact_info"> 
+      <label i18n="contact_info.label">Contact Info</label> 
+      <occurrences minimum="0" maximum="0"/> 
+      <items>
+        <input name="label" type="TextLine">
+          <label>Label</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <mixin name="address"/>
+      </items>
+    </item-set>
+    <option-set name="checkOptionSet">
+      <label i18n="checkOptionSet.label">Multi-selection OptionSet</label>
+      <expanded>true</expanded> 
+      <occurrences minimum="1" maximum="1"/> 
+      <options minimum="1" maximum="2">    
+        <option name="option_1">  
+          <label i18n="checkOptionSet.option_1.label">Option 1</label>  
+          <help-text i18n="checkOptionSet.option_1.help-text">Help text for Option 1</help-text>  
+        </option>
+        <option name="option_2">
+          <label i18n="checkOptionSet.option_2.label">Option 2</label>
+          <default>true</default> 
+          <items> 
+            <input name="label" type="TextLine">
+              <label>Label</label>
+              <occurrences minimum="0" maximum="1"/>
+            </input>
+            <mixin name="address"/>
+          </items>
+        </option>
+        <option name="option_3">
+          <label>Option 3</label>
+          <help-text>Help text for Option 3</help-text>
+          <items>
+            <mixin name="address"/>
+          </items>
+        </option>
+      </options>
+    </option-set>
+  </form>
+</content-type>`,
+
   noForm: `<content-type>
   <display-name>Employee</display-name>
   <super-type>base:structured</super-type>
@@ -586,6 +638,13 @@ describe("InterfaceGenerator", () => {
     const generator = xmltools.NewInterfaceGenerator();
     generator.addMixin("address", xml.mixin);
     const tsInterface = generator.createInterface("MixedIn", xml.mixinUser);
+    expect(tsInterface).toMatchSnapshot();
+  });
+
+  test("generates the correct mixin code for multilevel", () => {
+    const generator = xmltools.NewInterfaceGenerator();
+    generator.addMixin("address", xml.mixin);
+    const tsInterface = generator.createInterface("MixedIn", xml.mixinMultiLevel);
     expect(tsInterface).toMatchSnapshot();
   });
 
