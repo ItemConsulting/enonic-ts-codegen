@@ -110,6 +110,7 @@ interface Mixin {
 enum GeneratedFieldType {
   Boolean = "boolean",
   String = "string",
+  Number = "number",
   StringArray = "Array<string>",
   Array = "Array",
   Object = "Object",
@@ -369,7 +370,7 @@ function getType(
   inputType: string,
   options: { maxOccurrences?: number },
   node: Node
-): GeneratedFieldType | string  {
+): string  {
   switch (inputType.toLowerCase()) {
     case "contentselector":
       return options.maxOccurrences === 1
@@ -385,6 +386,8 @@ function getType(
         : union;
     case "radiobutton":
       return createStringUnion(getAllowedOptions(node));
+    case "long":
+      return GeneratedFieldType.Number;
     default:
       return GeneratedFieldType.String;
   }

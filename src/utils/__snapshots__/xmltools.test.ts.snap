@@ -125,7 +125,7 @@ exports[`InterfaceGenerator generates the correct OptionSet code 1`] = `
       /**
        * Long
        */
-      long?: string;
+      long?: number;
     };
   };
 }
@@ -153,6 +153,11 @@ exports[`InterfaceGenerator generates the correct input code 1`] = `
    * Last name
    */
   lastName?: string;
+
+  /**
+   * Age
+   */
+  age?: number;
 }
 "
 `;
