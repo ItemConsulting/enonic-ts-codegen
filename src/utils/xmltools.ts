@@ -35,6 +35,7 @@ export interface InterfaceGenerator {
    * @param xml
    */
   addMixin(mixinName: string, xml: string): void;
+
 }
 
 export function NewInterfaceGenerator(): InterfaceGenerator {
@@ -74,6 +75,9 @@ class Generator implements InterfaceGenerator {
     field: GeneratedField
   ): Array<GeneratedField> => {
     if (field.type != GeneratedFieldType.Mixin) {
+      if(field.subfields){
+        field.subfields = field.subfields.reduce(this.substituteMixins,[]);
+      }
       return result.concat([field]);
     }
     const mixin = this._mixins[field.name];
@@ -191,11 +195,15 @@ function getInputFields(node: Node): Array<GeneratedField> {
 
 // FieldSet is a flat structure with no nesting.
 function getFieldSetItems(node: Node): Array<GeneratedField> {
-  const fieldSets = evaluate("./field-set", node);
+  const fieldSets = evaluate("./field-set/items", node);
+
   return flatmapXpathResult(
     fieldSets,
     (node: Node): Array<GeneratedField> =>
-      mapXpathResult(evaluate("./items/input", node), createFieldFromInput)
+      [
+       ...mapXpathResult(evaluate("./input", node), createFieldFromInput),
+       ...getMixins(node)
+      ]
   );
 }
 
@@ -221,7 +229,8 @@ function getItemSetFields(node: Node): Array<GeneratedField> {
         ? [
             ...getInputFields(items),
             ...getFieldSetItems(items),
-            ...getItemSetFields(items)
+            ...getItemSetFields(items),
+            ...getMixins(items)
           ]
         : [];
 
@@ -277,14 +286,14 @@ function getOptionFields(node: Node): Array<GeneratedField> {
       const optional = minimumOccurrences ? minimumOccurrences === "0" : true;
       const comment = xpath.select1("string(./label)", node);
 
-
       const options = evaluate("./items", node).iterateNext();
       const subfields = options
         ? [
             ...getInputFields(options),
             ...getFieldSetItems(options),
             ...getItemSetFields(options),
-            ...getOptionSetFields(options)
+            ...getOptionSetFields(options),
+            ...getMixins(options)
           ]
         : [];
 

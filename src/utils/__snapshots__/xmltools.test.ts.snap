@@ -191,3 +191,130 @@ exports[`InterfaceGenerator generates the correct mixin code 1`] = `
 }
 "
 `;
+
+exports[`InterfaceGenerator generates the correct mixin code for multilevel 1`] = `
+"export interface MixedIn {
+  /**
+   * Street address
+   */
+  addressLine?: string;
+
+  /**
+   * City
+   */
+  city: string;
+
+  /**
+   * Zip code
+   */
+  zipCode: string;
+
+  /**
+   * Country
+   */
+  country: string;
+
+  /**
+   * Contact Info
+   */
+  contact_info?: Array<{
+    /**
+     * Label
+     */
+    label?: string;
+
+    /**
+     * Street address
+     */
+    addressLine?: string;
+
+    /**
+     * City
+     */
+    city: string;
+
+    /**
+     * Zip code
+     */
+    zipCode: string;
+
+    /**
+     * Country
+     */
+    country: string;
+  }>;
+
+  /**
+   * Multi-selection OptionSet
+   */
+  checkOptionSet: {
+    /**
+     * Selected
+     */
+    _selected: string | Array<string>;
+
+    /**
+     * Option 1
+     */
+    option_1?: {
+
+    };
+
+    /**
+     * Option 2
+     */
+    option_2?: {
+      /**
+       * Label
+       */
+      label?: string;
+
+      /**
+       * Street address
+       */
+      addressLine?: string;
+
+      /**
+       * City
+       */
+      city: string;
+
+      /**
+       * Zip code
+       */
+      zipCode: string;
+
+      /**
+       * Country
+       */
+      country: string;
+    };
+
+    /**
+     * Option 3
+     */
+    option_3?: {
+      /**
+       * Street address
+       */
+      addressLine?: string;
+
+      /**
+       * City
+       */
+      city: string;
+
+      /**
+       * Zip code
+       */
+      zipCode: string;
+
+      /**
+       * Country
+       */
+      country: string;
+    };
+  };
+}
+"
+`;
