@@ -43,6 +43,10 @@ const xml = {
       <label>Last name</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input type="Long" name="age">
+      <label>Age</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
   </form>
   </content-type>\n`,
 
@@ -415,13 +419,14 @@ describe("parseXML", () => {
 
   test("parses all inputs", () => {
     const tsInterface = xmltools.parseXml("Employee", xml.simple);
-    expect(tsInterface.fields.length).toBe(2);
+    expect(tsInterface.fields.length).toBe(3);
   });
 
   test("parses field names", () => {
     const tsInterface = xmltools.parseXml("Employee", xml.simple);
     expect(tsInterface.fields[0].name).toBe("firstName");
     expect(tsInterface.fields[1].name).toBe("lastName");
+    expect(tsInterface.fields[2].name).toBe("age");
   });
 
   test("parses no form as 0 fields", () => {
