@@ -231,6 +231,7 @@ function getItemSetFields(node: Node): Array<GeneratedField> {
             ...getInputFields(items),
             ...getFieldSetItems(items),
             ...getItemSetFields(items),
+            ...getOptionSetFields(items),
             ...getMixins(items)
           ]
         : [];
