@@ -203,6 +203,7 @@ function getFieldSetItems(node: Node): Array<GeneratedField> {
     (node: Node): Array<GeneratedField> =>
       [
        ...mapXpathResult(evaluate("./input", node), createFieldFromInput),
+       ...getItemSetFields(node),
        ...getMixins(node)
       ]
   );
