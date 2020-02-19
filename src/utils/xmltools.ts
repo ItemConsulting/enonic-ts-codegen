@@ -375,6 +375,7 @@ function getType(
 ): string  {
   switch (inputType.toLowerCase()) {
     case "contentselector":
+    case "mediaselector":
       return options.maxOccurrences === 1
         ? GeneratedFieldType.String
         : GeneratedFieldType.StringArray;
