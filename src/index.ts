@@ -55,7 +55,8 @@ const directories = [
   "src/main/resources/site/pages",
   "src/main/resources/site/layouts",
   "src/main/resources/site/macros",
-  "src/main/resources/site/mixins"
+  "src/main/resources/site/mixins",
+  "src/main/resources/site/x-data"
 ];
 const mixinDir = "src/main/resources/site/mixins";
 

@@ -408,7 +408,25 @@ mixinMultiLevel: `<content-type>
           <default>one</default> 
         </input>
       </form>
-  </content-type>\n`
+  </content-type>\n`,
+
+  xData: `
+  <x-data>
+    <display-name>Menu settings</display-name>
+    <form>
+      <input type="Checkbox" name="menuItem">
+        <label>Show in menu?</label>
+        <help-text>Check this to include this content in the menu.</help-text>
+        <occurrences minimum="0" maximum="1"/>
+      </input>
+      <input type="TextLine" name="menuName">
+        <label>Override menu name</label>
+        <help-text>Name to be used in menu, default is to use the content's DisplayName.</help-text>
+        <occurrences minimum="0" maximum="1"/>
+      </input>
+    </form>
+  </x-data>
+  `
 };
 
 describe("parseXML", () => {
@@ -552,6 +570,15 @@ describe("parseXML", () => {
     expect(mixins).toHaveLength(1);
     expect(mixins[0].name).toBe("address");
     expect(mixins[0].type).toBe("mixin");
+  });
+
+  test("parses x-data", () => {
+    const tsInterface = xmltools.parseXml("XDataExample", xml.xData);
+    expect(tsInterface.fields).toHaveLength(2);
+    const field = tsInterface.fields[0];
+    expect(field.name).toBe("menuItem");
+    expect(field.optional).toBe(true);
+    expect(field.comment).toBe("Show in menu?");
   });
 });
 
