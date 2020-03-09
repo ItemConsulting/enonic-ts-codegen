@@ -58,7 +58,7 @@ const directories = [
   "src/main/resources/site/mixins",
   "src/main/resources/site/x-data"
 ];
-const mixinDir = "src/main/resources/site/mixins";
+const mixinDirs = ["src/main/resources/site/mixins", "/build/resources/main/site/mixins"];
 
 function getEnonicXmlFiles(projectRootDir: string): Array<string> {
   return directories
@@ -125,14 +125,14 @@ function command(argv: Array<string>): void {
 
   cmd.parse(argv);
 
-  const absoluteMixinDirPath: string | undefined = cmd.project
-    ? path.join(cmd.project, mixinDir)
-    : undefined;
+  const absoluteMixinDirPaths: Array<string> = cmd.project
+    ? mixinDirs.map(mixinDir => path.join(cmd.project, mixinDir))
+    : [];
 
-  const projectMixins =
-    absoluteMixinDirPath && fs.existsSync(absoluteMixinDirPath)
-      ? listXmlFiles(absoluteMixinDirPath)
-      : [];
+  const projectMixins: Array<string> = absoluteMixinDirPaths
+    .filter(path => path && fs.existsSync(path))
+    .reduce<Array<string>>((res, path) => res.concat(listXmlFiles(path)), []);
+
   const mixinFiles = cmd.mixin.concat(projectMixins);
 
   for (const filename of mixinFiles) {
