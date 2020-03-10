@@ -112,6 +112,7 @@ enum GeneratedFieldType {
   String = "string",
   Number = "number",
   StringArray = "Array<string>",
+  StringOrStringArray = "string | Array<string>",
   Array = "Array",
   Object = "Object",
   Mixin = "mixin"
@@ -376,9 +377,13 @@ function getType(
   switch (inputType.toLowerCase()) {
     case "contentselector":
     case "mediaselector":
-      return options.maxOccurrences === 1
+      return (options.maxOccurrences === 1)
         ? GeneratedFieldType.String
         : GeneratedFieldType.StringArray;
+    case "contenttypefilter":
+      return (options.maxOccurrences === 1)
+        ? GeneratedFieldType.String
+        : GeneratedFieldType.StringOrStringArray;
     case "checkbox":
       return GeneratedFieldType.Boolean;
     case "combobox":
