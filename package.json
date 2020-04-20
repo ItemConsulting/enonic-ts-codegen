@@ -1,6 +1,6 @@
 {
   "name": "enonic-ts-codegen",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Generate TypeScript-code for Enonic XP",
   "main": "bin/index.js",
   "typings": "bin/index.d.ts",
@@ -35,8 +35,8 @@
     "@types/jest": "^24.0.20",
     "@types/node": "^12.7.12",
     "@types/xmldom": "^0.1.29",
-    "@typescript-eslint/eslint-plugin": "^2.21.0",
-    "@typescript-eslint/parser": "^2.21.0",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
     "eslint": "^6.6.0",
     "jest": "^24.9.0",
     "rimraf": "^3.0.0",

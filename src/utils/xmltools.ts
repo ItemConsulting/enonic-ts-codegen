@@ -205,6 +205,7 @@ function getFieldSetItems(node: Node): Array<GeneratedField> {
       [
        ...mapXpathResult(evaluate("./input", node), createFieldFromInput),
        ...getItemSetFields(node),
+       ...getOptionSetFields(node),
        ...getMixins(node)
       ]
   );
