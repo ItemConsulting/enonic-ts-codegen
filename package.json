@@ -1,6 +1,6 @@
 {
   "name": "enonic-ts-codegen",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Generate TypeScript-code for Enonic XP",
   "main": "bin/index.js",
   "typings": "bin/index.d.ts",
@@ -27,13 +27,13 @@
   "homepage": "https://github.com/ItemConsulting/enonic-ts-codegen#readme",
   "dependencies": {
     "change-case": "^4.1.0",
-    "commander": "^5.1.0",
+    "commander": "^3.0.2",
     "xmldom": "^0.3.0",
     "xpath": "0.0.27"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
-    "@types/node": "^14.0.9",
+    "@types/node": "^12.7.12",
     "@types/xmldom": "^0.1.29",
     "@typescript-eslint/eslint-plugin": "^3.1.0",
     "@typescript-eslint/parser": "^3.1.0",
