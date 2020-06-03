@@ -106,7 +106,7 @@ function exit(message: string): void {
   process.exit(1);
 }
 
-function collect<T>(next: T, prev: Array<T>): Array<T> {
+function collect(next: string, prev: Array<string>): Array<string> {
   return prev.concat([next]);
 }
 

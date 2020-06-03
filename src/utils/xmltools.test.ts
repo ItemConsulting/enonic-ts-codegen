@@ -387,6 +387,11 @@ mixinMultiLevel: `<content-type>
               <indexed>true</indexed>
               <occurrences minimum="0" maximum="1"/>
             </input>
+            <input name="double" type="Double">
+              <label>Long</label>
+              <indexed>true</indexed>
+              <occurrences minimum="0" maximum="1"/>
+            </input>
           </items>
         </option>
       </options>

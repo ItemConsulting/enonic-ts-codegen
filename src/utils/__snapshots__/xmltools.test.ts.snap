@@ -126,6 +126,11 @@ exports[`InterfaceGenerator generates the correct OptionSet code 1`] = `
        * Long
        */
       long?: number;
+
+      /**
+       * Long
+       */
+      double?: number;
     };
   };
 }

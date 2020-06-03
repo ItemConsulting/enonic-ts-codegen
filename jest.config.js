@@ -4,7 +4,7 @@ module.exports = {
       diagnostics: false
     }
   },
-  roots: ['<rootDir>/src', '<rootDir>/cli/utils'],
+  roots: ['<rootDir>/src', '<rootDir>/bin/utils'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },

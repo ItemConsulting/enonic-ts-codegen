@@ -396,6 +396,7 @@ function getType(
     case "radiobutton":
       return createStringUnion(getAllowedOptions(node));
     case "long":
+    case "double":
       return GeneratedFieldType.Number;
     default:
       return GeneratedFieldType.String;
