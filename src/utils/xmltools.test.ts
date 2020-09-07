@@ -300,6 +300,28 @@ mixinMultiLevel: `<content-type>
   <form></form>
 </content-type>\n`,
 
+  tagsSingle: `<content-type>
+  <display-name>Tags</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+  <input name="tags" type="Tag">
+    <label>Tags</label>
+    <occurrences minimum="0" maximum="1"/>
+  </input>
+  </form>
+</content-type>\n`,
+
+  tagsMultiple: `<content-type>
+  <display-name>Tags</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+  <input name="tags" type="Tag">
+    <label>Tags</label>
+    <occurrences minimum="0" maximum="0"/>
+  </input>
+  </form>
+</content-type>\n`,
+
   contentSelectorSingle: `<content-type>
   <display-name>Group</display-name>
   <super-type>base:structured</super-type>
@@ -493,8 +515,26 @@ describe("parseXML", () => {
   test("parses ItemSets as a nested structure", () => {
     const tsInterface = xmltools.parseXml("Employee", xml.itemSet);
     expect(tsInterface.fields.length).toBe(1);
-    expect(tsInterface.fields[0].subfields.length).toBe(3);
-    expect(tsInterface.fields[0].subfields[2].subfields.length).toBe(1);
+    expect(tsInterface.fields[0].subfields?.length).toBe(3);
+    expect(tsInterface.fields[0].subfields?.[2]?.subfields?.length).toBe(1);
+  });
+
+  test("parses tags as string", () => {
+    const tsInterface = xmltools.parseXml(
+      "ContentSelectorExample",
+      xml.tagsSingle
+    );
+    const field = tsInterface.fields[0];
+    expect(field.type).toBe("string");
+  });
+
+  test("parses tags as Array<string>", () => {
+    const tsInterface = xmltools.parseXml(
+      "ContentSelectorExample",
+      xml.tagsMultiple
+    );
+    const field = tsInterface.fields[0];
+    expect(field.type).toBe("Array<string>");
   });
 
   test("parses ContentSelector as string", () => {
