@@ -111,6 +111,7 @@ function collect(next: string, prev: Array<string>): Array<string> {
 }
 
 function command(argv: Array<string>): void {
+  console.warn("'enonic-ts-codegen' has been deprecated, and is not maintained anymore.\nPlease use the 'xp-codegen-plugin' instead.\nhttps://github.com/ItemConsulting/xp-codegen-plugin");
   const cmd = new commander.Command();
 
   cmd

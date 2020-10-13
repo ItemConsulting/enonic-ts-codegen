@@ -1,6 +1,14 @@
-# Enonic TypeScript Code Generation
+# DEPRECATED
 
-[![npm version](https://badge.fury.io/js/enonic-ts-codegen.svg)](https://badge.fury.io/js/enonic-ts-codegen)
+----
+
+**WARNING: This project has been deprecated**, and is not being maintained anymore. 
+
+Please use the new and much better [XP Codegen Gradle Plugin](https://github.com/ItemConsulting/xp-codegen-plugin) instead.
+
+----
+
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 Code generation tool that creates **TypeScript interfaces** based on xmls in Enonic XP. It can create interfaces for:
 
